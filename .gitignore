@@ -1,0 +1,18 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Dependencias
+node_modules/
+
+# Variables de entorno
+.env
+.env.local
+
+# Build outputs
+dist/
+.next/
+
+# IDE
+.vscode/
+.idea/
