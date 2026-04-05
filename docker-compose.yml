@@ -1,0 +1,85 @@
+﻿# ========================================================
+# docker-compose.yml - Sistema de Gestion de Alquiler de Vehiculos
+# ========================================================
+# Uso:
+#   docker compose up --build    # primera vez
+#   docker compose up -d         # modo detached
+#   docker compose down          # detener
+#   docker compose down -v       # detener + eliminar datos BD
+# ========================================================
+
+services:
+  # -------------------------------------------------------
+  # PostgreSQL
+  # -------------------------------------------------------
+  postgres:
+    image: postgres:16-alpine
+    container_name: alquiler_vehiculos_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-alquiler_vehiculos}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-alquiler_vehiculos}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - alquiler_vehiculos_net
+
+  # -------------------------------------------------------
+  # Backend - NestJS
+  # -------------------------------------------------------
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: alquiler_vehiculos_backend
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-alquiler_vehiculos}?schema=public
+      PORT: 3001
+      NODE_ENV: production
+    ports:
+      - "3001:3001"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - alquiler_vehiculos_net
+
+  # -------------------------------------------------------
+  # Frontend - Next.js
+  # -------------------------------------------------------
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: alquiler_vehiculos_frontend
+    restart: unless-stopped
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:3001/api/v1
+      NODE_ENV: production
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - alquiler_vehiculos_net
+
+# -------------------------------------------------------
+# Volumenes y redes
+# -------------------------------------------------------
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  alquiler_vehiculos_net:
+    driver: bridge
