@@ -1,8 +1,4 @@
-# OS
-.DS_Store
-Thumbs.db
-
-# Dependencias
+﻿# Dependencias
 node_modules/
 
 # Variables de entorno
@@ -16,3 +12,14 @@ dist/
 # IDE
 .vscode/
 .idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Prisma
+prisma/migrations/
