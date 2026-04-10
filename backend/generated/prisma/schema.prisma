@@ -1,0 +1,165 @@
+// ============================================================
+// Prisma Schema — Sistema de Gestión de Alquiler de Vehículos
+// ============================================================
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ============================================================
+// ENTIDAD: Vehiculo
+// ============================================================
+enum TipoVehiculo {
+  SEDAN
+  SUV
+  CAMIONETA
+  DEPORTIVO
+  FURGONETA
+}
+
+enum EstadoVehiculo {
+  DISPONIBLE
+  ALQUILADO
+  MANTENIMIENTO
+  FUERA_DE_SERVICIO
+}
+
+model Vehiculo {
+  id           Int            @id @default(autoincrement())
+  marca        String
+  modelo       String
+  anio         Int
+  placa        String         @unique
+  tipo         TipoVehiculo
+  estado       EstadoVehiculo @default(DISPONIBLE)
+  precioPorDia Float
+  kilometraje  Int            @default(0)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  reservas       Reserva[]
+  mantenimientos Mantenimiento[]
+
+  @@map("vehiculos")
+}
+
+// ============================================================
+// ENTIDAD: Cliente
+// ============================================================
+model Cliente {
+  id                 Int      @id @default(autoincrement())
+  nombres            String
+  apellidos          String
+  documentoIdentidad String   @unique
+  licenciaConduccion String   @unique
+  correo             String   @unique
+  telefono           String
+  direccion          String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  reservas Reserva[]
+
+  @@map("clientes")
+}
+
+// ============================================================
+// ENTIDAD: Reserva
+// ============================================================
+enum EstadoReserva {
+  PENDIENTE
+  CONFIRMADA
+  ACTIVA
+  FINALIZADA
+  CANCELADA
+}
+
+model Reserva {
+  id          Int           @id @default(autoincrement())
+  clienteId   Int
+  vehiculoId  Int
+  fechaInicio DateTime
+  fechaFin    DateTime
+  estado      EstadoReserva @default(PENDIENTE)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  cliente  Cliente   @relation(fields: [clienteId], references: [id])
+  vehiculo Vehiculo  @relation(fields: [vehiculoId], references: [id])
+  contrato Contrato?
+
+  @@map("reservas")
+}
+
+// ============================================================
+// ENTIDAD: Contrato
+// ============================================================
+enum EstadoContrato {
+  VIGENTE
+  FINALIZADO
+  CANCELADO
+}
+
+model Contrato {
+  id           Int            @id @default(autoincrement())
+  reservaId    Int            @unique
+  fechaEntrega DateTime
+  valorTotal   Float
+  condiciones  String?
+  estado       EstadoContrato @default(VIGENTE)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  reserva    Reserva     @relation(fields: [reservaId], references: [id])
+  devolucion Devolucion?
+
+  @@map("contratos")
+}
+
+// ============================================================
+// ENTIDAD: Devolucion
+// ============================================================
+model Devolucion {
+  id                 Int      @id @default(autoincrement())
+  contratoId         Int      @unique
+  fechaDevolucion    DateTime @default(now())
+  estadoVehiculo     String
+  kilometrajeRetorno Int
+  cargosAdicionales  Float    @default(0)
+  observaciones      String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  contrato Contrato @relation(fields: [contratoId], references: [id])
+
+  @@map("devoluciones")
+}
+
+// ============================================================
+// ENTIDAD: Mantenimiento
+// ============================================================
+enum TipoMantenimiento {
+  PREVENTIVO
+  CORRECTIVO
+  REVISION
+}
+
+model Mantenimiento {
+  id          Int               @id @default(autoincrement())
+  vehiculoId  Int
+  tipo        TipoMantenimiento
+  descripcion String
+  costo       Float
+  fecha       DateTime
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  vehiculo Vehiculo @relation(fields: [vehiculoId], references: [id])
+
+  @@map("mantenimientos")
+}
