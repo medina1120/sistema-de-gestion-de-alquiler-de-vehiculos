@@ -11,16 +11,12 @@ Proyecto full-stack para gestion de alquiler de vehiculos con NestJS + Next.js +
 
 ## Casos de Uso
 
-- CU-01: Registrar vehiculo con marca, modelo, ano, placa, tipo y estado
-- CU-02: Registrar cliente con datos personales, licencia y contacto
-- CU-03: Crear reserva seleccionando vehiculo y fechas
-- CU-04: Verificar disponibilidad de vehiculo
-- CU-05: Generar contrato de alquiler
-- CU-06: Registrar devolucion del vehiculo
-- CU-07: Actualizar estado del vehiculo
-- CU-08: Registrar mantenimiento de vehiculo
-- CU-09: Listar vehiculos disponibles
-- CU-10: Consultar historial de reservas del cliente
+- CU-01: Registrar vehículo con marca, modelo, año, placa, tipo (sedán, SUV, camioneta) y estado.
+- CU-02: Registrar cliente con datos personales, licencia de conducción y contacto
+- CU-03: Crear reserva seleccionando vehículo, fecha de inicio, fecha de fin y verificando disponibilidad
+- CU-04: Generar contrato de alquiler al entregar el vehículo con condiciones y valor total.
+- CU-05: Registrar devolución del vehículo con revisión de estado y cálculo de cargos adicionales
+
 
 ## Equipo
 
