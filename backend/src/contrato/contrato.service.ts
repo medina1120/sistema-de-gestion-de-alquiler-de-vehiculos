@@ -1,21 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { EstadoContrato } from '../../generated/prisma';
+import { CreateContratoDto } from './dto/create-contrato.dto';
+import { UpdateContratoDto } from './dto/update-contrato.dto';
 
-export class CreateContratoDto {
-  reservaId: number;
-  fechaEntrega: string;
-  valorTotal: number;
-  condiciones?: string;
-  estado?: EstadoContrato;
-}
-
-export class UpdateContratoDto {
-  fechaEntrega?: string;
-  valorTotal?: number;
-  condiciones?: string;
-  estado?: EstadoContrato;
-}
+export { CreateContratoDto, UpdateContratoDto };
 
 @Injectable()
 export class ContratoService {

@@ -1,37 +1,16 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { TipoVehiculo, EstadoVehiculo } from '../../generated/prisma';
+import { CreateVehiculoDto } from './dto/create-vehiculo.dto';
+import { UpdateVehiculoDto } from './dto/update-vehiculo.dto';
 
-export class CreateVehiculoDto {
-  marca: string;
-  modelo: string;
-  anio: number;
-  placa: string;
-  tipo: TipoVehiculo;
-  estado?: EstadoVehiculo;
-  precioPorDia: number;
-  kilometraje?: number;
-}
-
-export class UpdateVehiculoDto {
-  marca?: string;
-  modelo?: string;
-  anio?: number;
-  placa?: string;
-  tipo?: TipoVehiculo;
-  estado?: EstadoVehiculo;
-  precioPorDia?: number;
-  kilometraje?: number;
-}
+export { CreateVehiculoDto, UpdateVehiculoDto };
 
 @Injectable()
 export class VehiculoService {
   constructor(private prisma: PrismaService) {}
 
   async findAll() {
-    return this.prisma.vehiculo.findMany({
-      orderBy: { createdAt: 'desc' },
-    });
+    return this.prisma.vehiculo.findMany({ orderBy: { createdAt: 'desc' } });
   }
 
   async findOne(id: number) {
