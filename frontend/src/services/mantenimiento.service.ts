@@ -1,4 +1,5 @@
 import { api } from "@/lib/api";
+import type { Vehiculo } from "./vehiculo.service";
 
 export type TipoMantenimiento = "PREVENTIVO" | "CORRECTIVO" | "REVISION";
 
@@ -11,9 +12,17 @@ export interface Mantenimiento {
   fecha: string;
   createdAt: string;
   updatedAt: string;
+  vehiculo?: Vehiculo;
 }
 
-export type CreateMantenimientoDto = Omit<Mantenimiento, "id" | "createdAt" | "updatedAt">;
+export type CreateMantenimientoDto = {
+  vehiculoId: number;
+  tipo: TipoMantenimiento;
+  descripcion: string;
+  costo: number;
+  fecha: string;
+};
+
 export type UpdateMantenimientoDto = Partial<CreateMantenimientoDto>;
 
 export const mantenimientoService = {

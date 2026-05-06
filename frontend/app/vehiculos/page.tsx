@@ -96,25 +96,49 @@ export default function VehiculosPage() {
 
         {showForm && (
           <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow p-6 mb-6 grid grid-cols-2 gap-4">
-            <input required placeholder="Marca" value={form.marca} onChange={e => setForm({ ...form, marca: e.target.value })} className="border rounded p-2" />
-            <input required placeholder="Modelo" value={form.modelo} onChange={e => setForm({ ...form, modelo: e.target.value })} className="border rounded p-2" />
-            <input required type="number" placeholder="Anio" value={form.anio} onChange={e => setForm({ ...form, anio: Number(e.target.value) })} className="border rounded p-2" />
-            <input required placeholder="Placa" value={form.placa} onChange={e => setForm({ ...form, placa: e.target.value })} className="border rounded p-2" />
-            <select value={form.tipo} onChange={e => setForm({ ...form, tipo: e.target.value as CreateVehiculoDto["tipo"] })} className="border rounded p-2">
-              <option value="SEDAN">Sedan</option>
-              <option value="SUV">SUV</option>
-              <option value="CAMIONETA">Camioneta</option>
-              <option value="DEPORTIVO">Deportivo</option>
-              <option value="FURGONETA">Furgoneta</option>
-            </select>
-            <select value={form.estado} onChange={e => setForm({ ...form, estado: e.target.value as EstadoVehiculo })} className="border rounded p-2">
-              <option value="DISPONIBLE">Disponible</option>
-              <option value="ALQUILADO">Alquilado</option>
-              <option value="MANTENIMIENTO">Mantenimiento</option>
-              <option value="FUERA_DE_SERVICIO">Fuera de servicio</option>
-            </select>
-            <input required type="number" placeholder="Precio por dia" value={form.precioPorDia} onChange={e => setForm({ ...form, precioPorDia: Number(e.target.value) })} className="border rounded p-2" />
-            <input required type="number" placeholder="Kilometraje" value={form.kilometraje} onChange={e => setForm({ ...form, kilometraje: Number(e.target.value) })} className="border rounded p-2" />
+            <div>
+              <label className="block text-sm text-gray-600 mb-1">Marca</label>
+              <input required placeholder="Ej: Toyota" value={form.marca} onChange={e => setForm({ ...form, marca: e.target.value })} className="border rounded p-2 w-full" />
+            </div>
+            <div>
+              <label className="block text-sm text-gray-600 mb-1">Modelo</label>
+              <input required placeholder="Ej: Corolla" value={form.modelo} onChange={e => setForm({ ...form, modelo: e.target.value })} className="border rounded p-2 w-full" />
+            </div>
+            <div>
+              <label className="block text-sm text-gray-600 mb-1">Año</label>
+              <input required type="number" value={form.anio} onChange={e => setForm({ ...form, anio: Number(e.target.value) })} className="border rounded p-2 w-full" />
+            </div>
+            <div>
+              <label className="block text-sm text-gray-600 mb-1">Placa</label>
+              <input required placeholder="Ej: ABC123" value={form.placa} onChange={e => setForm({ ...form, placa: e.target.value })} className="border rounded p-2 w-full" />
+            </div>
+            <div>
+              <label className="block text-sm text-gray-600 mb-1">Tipo</label>
+              <select value={form.tipo} onChange={e => setForm({ ...form, tipo: e.target.value as CreateVehiculoDto["tipo"] })} className="border rounded p-2 w-full">
+                <option value="SEDAN">Sedan</option>
+                <option value="SUV">SUV</option>
+                <option value="CAMIONETA">Camioneta</option>
+                <option value="DEPORTIVO">Deportivo</option>
+                <option value="FURGONETA">Furgoneta</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm text-gray-600 mb-1">Estado</label>
+              <select value={form.estado} onChange={e => setForm({ ...form, estado: e.target.value as EstadoVehiculo })} className="border rounded p-2 w-full">
+                <option value="DISPONIBLE">Disponible</option>
+                <option value="ALQUILADO">Alquilado</option>
+                <option value="MANTENIMIENTO">Mantenimiento</option>
+                <option value="FUERA_DE_SERVICIO">Fuera de servicio</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm text-gray-600 mb-1">Precio por dia (COP)</label>
+              <input required type="number" min={0} value={form.precioPorDia} onChange={e => setForm({ ...form, precioPorDia: Number(e.target.value) })} className="border rounded p-2 w-full" />
+            </div>
+            <div>
+              <label className="block text-sm text-gray-600 mb-1">Kilometraje</label>
+              <input required type="number" min={0} value={form.kilometraje} onChange={e => setForm({ ...form, kilometraje: Number(e.target.value) })} className="border rounded p-2 w-full" />
+            </div>
             <div className="col-span-2 flex gap-3">
               <button type="submit" className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700">Guardar</button>
               <button type="button" onClick={() => setShowForm(false)} className="bg-gray-400 text-white px-6 py-2 rounded-lg">Cancelar</button>
