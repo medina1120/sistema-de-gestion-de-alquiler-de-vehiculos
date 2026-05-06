@@ -1,4 +1,11 @@
-import { IsNumber, IsDateString, IsString, IsEnum, IsOptional, IsNotEmpty } from 'class-validator';
+import {
+  IsNumber,
+  IsDateString,
+  IsString,
+  IsEnum,
+  IsOptional,
+  IsNotEmpty,
+} from 'class-validator';
 import { EstadoContrato } from '../../../generated/prisma';
 
 export class CreateContratoDto {
@@ -9,10 +16,6 @@ export class CreateContratoDto {
   @IsDateString()
   @IsNotEmpty()
   fechaEntrega: string;
-
-  @IsNumber()
-  @IsNotEmpty()
-  valorTotal: number;
 
   @IsString()
   @IsOptional()

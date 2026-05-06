@@ -1,4 +1,6 @@
 import { api } from "@/lib/api";
+import type { Cliente } from "./cliente.service";
+import type { Vehiculo } from "./vehiculo.service";
 
 export type EstadoReserva = "PENDIENTE" | "CONFIRMADA" | "ACTIVA" | "FINALIZADA" | "CANCELADA";
 
@@ -11,9 +13,17 @@ export interface Reserva {
   estado: EstadoReserva;
   createdAt: string;
   updatedAt: string;
+  cliente?: Cliente;
+  vehiculo?: Vehiculo;
 }
 
-export type CreateReservaDto = Omit<Reserva, "id" | "createdAt" | "updatedAt">;
+export type CreateReservaDto = {
+  clienteId: number;
+  vehiculoId: number;
+  fechaInicio: string;
+  fechaFin: string;
+  estado?: EstadoReserva;
+};
 export type UpdateReservaDto = Partial<CreateReservaDto>;
 
 export const reservaService = {

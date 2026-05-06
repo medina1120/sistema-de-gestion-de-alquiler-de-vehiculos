@@ -1,4 +1,5 @@
 import { api } from "@/lib/api";
+import type { Contrato } from "./contrato.service";
 
 export interface Devolucion {
   id: number;
@@ -10,9 +11,17 @@ export interface Devolucion {
   observaciones?: string;
   createdAt: string;
   updatedAt: string;
+  contrato?: Contrato;
 }
 
-export type CreateDevolucionDto = Omit<Devolucion, "id" | "createdAt" | "updatedAt">;
+export type CreateDevolucionDto = {
+  contratoId: number;
+  fechaDevolucion: string;
+  estadoVehiculo: string;
+  kilometrajeRetorno: number;
+  cargosAdicionales?: number;
+  observaciones?: string;
+};
 export type UpdateDevolucionDto = Partial<CreateDevolucionDto>;
 
 export const devolucionService = {

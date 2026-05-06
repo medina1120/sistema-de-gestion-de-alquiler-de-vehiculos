@@ -13,9 +13,24 @@ export class ClienteService {
     return this.prisma.cliente.findMany({ orderBy: { createdAt: 'desc' } });
   }
 
+  /**
+   * Devuelve el cliente con su historial completo de reservas (HU-10).
+   * Cada reserva incluye su vehículo y, si existe, su contrato y devolución.
+   */
   async findOne(id: number) {
-    const cliente = await this.prisma.cliente.findUnique({ where: { id } });
-    if (!cliente) throw new NotFoundException('Cliente no encontrado');
+    const cliente = await this.prisma.cliente.findUnique({
+      where: { id },
+      include: {
+        reservas: {
+          orderBy: { createdAt: 'desc' },
+          include: {
+            vehiculo: true,
+            contrato: { include: { devolucion: true } },
+          },
+        },
+      },
+    });
+    if (!cliente) throw new NotFoundException(`Cliente #${id} no encontrado`);
     return cliente;
   }
 

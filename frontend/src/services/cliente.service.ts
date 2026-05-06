@@ -1,4 +1,5 @@
 import { api } from "@/lib/api";
+import type { Reserva } from "./reserva.service";
 
 export interface Cliente {
   id: number;
@@ -11,9 +12,10 @@ export interface Cliente {
   direccion?: string;
   createdAt: string;
   updatedAt: string;
+  reservas?: Reserva[];
 }
 
-export type CreateClienteDto = Omit<Cliente, "id" | "createdAt" | "updatedAt">;
+export type CreateClienteDto = Omit<Cliente, "id" | "createdAt" | "updatedAt" | "reservas">;
 export type UpdateClienteDto = Partial<CreateClienteDto>;
 
 export const clienteService = {
