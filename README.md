@@ -1,4 +1,23 @@
 # Sistema de Gestion de Alquiler de Vehiculos
+## 🎓 Sistema de Gestión de Alquiler de Vehículos
+
+Proyecto full-stack guiado por el docente · Programación Avanzada 2026A  
+Corporación Universitaria del Huila — CORHUILA · Ingeniería de Sistemas
+
+![NestJS](https://img.shields.io/badge/NestJS-10-red)
+![Next.js](https://img.shields.io/badge/Next.js-16-black)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-blue)
+![Docker](https://img.shields.io/badge/Docker-latest-blue)
+![Prisma](https://img.shields.io/badge/Prisma-7.5-darkblue)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
+
+![Estado](https://img.shields.io/badge/Estado-Release%202-green)
+![Sprints](https://img.shields.io/badge/Sprints-5%20de%205%20completos-blue)
+
+---
+
+## 📌 Descripción
+Sistema para la gestión de alquiler de vehículos...
 
 Proyecto full-stack para gestion de alquiler de vehiculos con NestJS + Next.js + PostgreSQL + Docker + Prisma
 
@@ -64,6 +83,13 @@ Contrato           1 ──── 1  Devolucion
 | HU-08 | Registrar Mantenimiento de Vehículo | Backend |
 | HU-09 | Listar Vehículos Disponibles | Frontend |
 | HU-10 | Consultar Historial de Reservas del Cliente | Frontend |
+## 📊 Tablero Kanban
+
+🔗 [Ver tablero Kanban](https://github.com/medina1120/sistema-de-gestion-de-alquiler-de-vehiculos/projects)
+
+| Todo | In Progress | Done |
+|------|------------|------|
+| — | — | INFRA, HU-01, HU-02, HU-03, HU-04, HU-05, HU-06, HU-07, HU-08, HU-09, HU-10 (11 items) |
 
 ## Equipo
 
