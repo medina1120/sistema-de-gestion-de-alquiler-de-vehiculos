@@ -33,12 +33,12 @@ Contrato           1 ──── 1  Devolucion
 
 | Entidad | Campos Principales |
 |---------|--------------------|
-| **Vehiculo** | id, marca, modelo, anio, placa (unique), tipo (TipoVehiculo), estado (EstadoVehiculo), precioPorDia, kilometraje, createdAt, updatedAt |
-| **Cliente** | id, nombres, apellidos, documentoIdentidad (unique), licenciaConduccion (unique), correo (unique), telefono, direccion, createdAt, updatedAt |
-| **Reserva** | id, clienteId, vehiculoId, fechaInicio, fechaFin, estado (EstadoReserva), createdAt, updatedAt |
-| **Contrato** | id, reservaId (unique), fechaEntrega, valorTotal, condiciones, estado (EstadoContrato), createdAt, updatedAt |
-| **Devolucion** | id, contratoId (unique), fechaDevolucion, estadoVehiculo, kilometrajeRetorno, cargosAdicionales, observaciones, createdAt, updatedAt |
-| **Mantenimiento** | id, vehiculoId, tipo (TipoMantenimiento), descripcion, costo, fecha, createdAt, updatedAt |
+| **Vehiculo** | id, marca, modelo, año, placa (unique), tipo (TipoVehiculo), estado (EstadoVehiculo), precioPorDia, kilometraje,
+| **Cliente** | id, nombres, apellidos, documento Identidad (unique), licenciaConduccion (unique), correo (unique), telefono, direccion, 
+| **Reserva** | id, cliente, vehiculo, fechaInicio, fechaFin, estado (EstadoReserva)
+| **Contrato** | id, reserva (unique), fechaEntrega, valorTotal, condiciones, estado (EstadoContrato), 
+| **Devolucion** | id, contrato (unique), fechaDevolucion, estadoVehiculo, kilometrajeRetorno, cargosAdicionales, observaciones, 
+| **Mantenimiento** | id, vehiculo, tipo (TipoMantenimiento), descripcion, costo, fecha, 
 
 ### Enumeraciones
 
@@ -100,7 +100,9 @@ cp .env.example .env
 
 # 3. Levantar todo
 docker compose up --build
+
 ```
+
 
 ### Servicios
 
@@ -109,3 +111,5 @@ docker compose up --build
 | Frontend | http://localhost:3000 |
 | API REST | http://localhost:3001/api/v1 |
 | PostgreSQL | localhost:5432 |
+# 
+Se usó asistencia de IA (Claude) para la implementación de la lógica 
